@@ -1,0 +1,1 @@
+export const currencyTypes = ["CAD", "USD", "EUR"] as const;
