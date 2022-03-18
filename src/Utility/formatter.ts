@@ -1,4 +1,5 @@
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
+import { ITransaction } from "../Interfaces/ITransaction";
 
 export const formatAddress = (address: string): string => {
   return `${address.slice(0, 4)}...${address.slice(address.length - 4, address.length)}`;
@@ -8,11 +9,25 @@ export const calculateEthToString = (ethValue: string, currencyValue: number) : 
     return (currencyValue * Number(ethValue)).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export const formatEthToFourPoints = (wei: string) : string => {
+export const weiToEthString4D = (wei: string) : string => {
     let eth = ethers.utils.formatEther(wei);
     const split = eth.split(".");
           if (split.length > 0 && split[1].length >= 5) {
             eth = split[0] + "." + split[1].substring(0, 4);
           }
     return eth;
+}
+
+export const getGasEthString = (transaction: ITransaction) : string => {
+  return ethers.utils.formatEther(BigNumber.from(transaction.gasPrice).mul(BigNumber.from(transaction.gasUsed)));
+}
+
+export const getGasBigNumber = (transaction: ITransaction) : BigNumber => {
+  return BigNumber.from(transaction.gasPrice).mul(BigNumber.from(transaction.gasUsed));
+}
+
+export const getTimestampToDate = (timestamp: string) : string => {
+  const d = new Date(0);
+  d.setUTCSeconds(Number(timestamp))
+  return d.toLocaleString();
 }

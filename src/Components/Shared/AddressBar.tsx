@@ -7,10 +7,11 @@ import { CustomSelect, StyledOption } from "./CurrencySelect";
 import { currencyTypes } from "../../Assets/Data/CurrencyTypes";
 import { ReactComponent as EthereumIcon } from "../../Assets/Icon/ethereum.svg"
 import axios from "axios";
-import { formatEthToFourPoints, calculateEthToString } from "../../Utility/formatter";
+import { weiToEthString4D , calculateEthToString } from "../../Utility/formatter";
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import PaidIcon from '@mui/icons-material/Paid';
 import Web3 from "web3";
+import { getCurrencySymbol } from "../../Utility/currency";
 
 const AddressBar = () => {
   const theme = useTheme();
@@ -34,7 +35,7 @@ const AddressBar = () => {
           `https://api.etherscan.io/api?module=account&action=balance&address=${curAddress}&tag=latest&apikey=${process.env.REACT_APP_ETHERSCAN_KEY}`
         )
         .then(({ data }) => {
-          setWalletEth(formatEthToFourPoints(data.result));
+          setWalletEth(weiToEthString4D(data.result));
         }).catch(()=> {
           enqueueSnackbar(`Error fetching wallet from etherscans`, {
             variant: "error",
@@ -128,7 +129,7 @@ const AddressBar = () => {
                 <EthereumIcon style={{marginRight: "4px", width: "12px", height: '17px', ...(mode === "dark" && { filter: "invert(100%)"})}}/>
                 {
                   currency.value !== 0 ?
-                  ` $${Number(currency.value).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+                  `${getCurrencySymbol(currency.type)} ${Number(currency.value).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
                   :
                   <CircularProgress color="primary" size={25} sx={{mr: 1, ml: 1}}/>
                 }

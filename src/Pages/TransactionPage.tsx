@@ -1,14 +1,17 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { useWallet } from "../Contexts/WalletContext";
-import { ITransaction } from "../Interfaces/ITransaction";
+import { ITransaction, ITransactionState } from "../Interfaces/ITransaction";
 import { Button, Typography, useTheme  } from "@mui/material";
 import { transactionReducer } from "../Reducers/TransactionReducer";
 import TransactionTable from "../Components/Transactions/TransactionTable";
 
-const initialTransactions: Array<ITransaction> = []; 
+const initialTransactions: ITransactionState = {
+    original: [],
+    filtered: []
+}; 
 
 const TransactionPage = () => {
-  const [filteredTransactions, dispatch] = useReducer(transactionReducer, initialTransactions);
+  const [stateTransactions, dispatch] = useReducer(transactionReducer, initialTransactions);
 
   const {
     wallet: { curAddress, transactions },
@@ -19,9 +22,12 @@ const TransactionPage = () => {
       dispatch({type: "setTransactions", payload: transactions})
   }, [transactions])
 
+
+  
+
   return (
     <div>
-        <TransactionTable transactions={filteredTransactions} dispatch={dispatch} />
+        <TransactionTable stateTransactions={stateTransactions} dispatch={dispatch} />
     </div>
   );
 };

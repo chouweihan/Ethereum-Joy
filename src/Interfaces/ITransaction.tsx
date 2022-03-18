@@ -18,3 +18,9 @@ export interface ITransaction {
     txreceipt_status: string
     value: string
 }
+
+
+export interface ITransactionState {
+    original: Array<ITransaction>
+    filtered: Array<ITransaction>    
+}
