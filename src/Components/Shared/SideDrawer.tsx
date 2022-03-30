@@ -1,5 +1,4 @@
 import React from "react";
-import { IDrawerInterface } from "../../Interfaces/IDrawerInterface";
 import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import {
@@ -49,10 +48,10 @@ const closedMixin = (theme: Theme) => ({
   },
 });
 
-const SideDrawer = ({ isDrawerOpen, setIsDrawerOpen, drawerWidth }: IDrawerInterface) => {
+const SideDrawer = () => {
   const theme: Theme = useTheme();
   const location = useLocation();
-  const { mode } = useColorMode();
+  const { mode, isDrawerOpen, setIsDrawerOpen, drawerWidth } = useColorMode();
 
   return (
     <MuiDrawer

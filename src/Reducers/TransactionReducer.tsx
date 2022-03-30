@@ -1,8 +1,11 @@
-import { ITransaction, ITransactionState } from "../Interfaces/ITransaction";
+import { ITransaction } from "../Interfaces/ITransaction";
 import { BigNumber } from "ethers";
 import { getGasBigNumber } from "../Utility/formatter";
 
-
+interface ITransactionState {
+  original: ITransaction[],
+  filtered: ITransaction[]
+}
 
 export type Actions = 
 | { type: "setTransactions"; payload: Array<ITransaction> }
@@ -47,7 +50,6 @@ export const transactionReducer = (state: ITransactionState, action: Actions) =>
 
     case "sortBiggestTransaction": {
       const copy = [...state.filtered].sort((a, b) => { return (BigNumber.from(a.value).gte( BigNumber.from(b.value))) ? -1 : 1 });
-      console.log(copy);
       return {
         ...state,
         filtered: [...copy]

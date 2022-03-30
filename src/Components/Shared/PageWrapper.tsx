@@ -1,10 +1,9 @@
 import React, { ReactNode } from "react";
-import { Box } from "@mui/system";
-import { useTheme } from "@mui/system";
 import { DrawerHeader } from "./SideDrawer";
 import AddressBar from "./AddressBar";
-import { Container } from "@mui/material";
-const PageWrapper = ({ children }: { children: ReactNode }) => {
+import { Container, useTheme, Box } from "@mui/material";
+
+const PageWrapper = ({ children } : { children: ReactNode }) => {
   const theme = useTheme();
 
   return (
@@ -18,6 +17,7 @@ const PageWrapper = ({ children }: { children: ReactNode }) => {
         <AddressBar />
         {children}
       </Container>
+      <DrawerHeader />
     </Box>
   );
 };

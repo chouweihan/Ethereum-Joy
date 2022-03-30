@@ -11,8 +11,8 @@ import useWindowDimensions from "../../Utility/windowDimensions";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
-const Navbar = ({ isDrawerOpen, setIsDrawerOpen, drawerWidth }: IDrawerInterface) => {
-  const { mode, toggleColorMode } = useColorMode();
+const Navbar = () => {
+  const { mode, toggleColorMode, isDrawerOpen, setIsDrawerOpen, drawerWidth } = useColorMode();
   const { width } = useWindowDimensions();
   const theme: Theme = useTheme();
 
@@ -54,7 +54,7 @@ const Navbar = ({ isDrawerOpen, setIsDrawerOpen, drawerWidth }: IDrawerInterface
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <NavLink to="/" style={{ textDecoration: "none", color: "white" }}>
-              {width > 400 ? "Ethereum Joy" : "Eth Joy"}
+              {width > 500 ? "Ethereum Joy" : "Eth Joy"}
             </NavLink>
           </Typography>
           <Metamask />

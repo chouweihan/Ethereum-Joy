@@ -1,10 +1,14 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import React, { ReactNode, useState, useMemo, useContext } from "react";
+import React, { ReactNode, useState, useMemo, useContext, useEffect } from "react";
 import {lightTheme, darkTheme} from "../Assets/Theme/Palette";
+import useWindowDimensions from '../Utility/windowDimensions';
 
 interface IColorModeContext {
     toggleColorMode: () => void;
     mode: "dark" | "light";
+    drawerWidth: string;
+    isDrawerOpen: boolean;
+    setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 const getLocalStorageTheme = () => {
@@ -14,13 +18,25 @@ const getLocalStorageTheme = () => {
 
 export const ColorModeContext = React.createContext<IColorModeContext>({
     toggleColorMode: () => {},
-    mode: getLocalStorageTheme()
+    mode: getLocalStorageTheme(),
+    drawerWidth: '240px',
+    isDrawerOpen: false,
+    setIsDrawerOpen: () => {}
 });
 
 
 
 export const ColorModeProvider = ({children} : { children: ReactNode }) => {
+    const { width } = useWindowDimensions();
+    const drawerWidth = "240px";
     const [mode, setMode] = useState<"light" | "dark">(getLocalStorageTheme());
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(width >= 1536 ? true : false);
+
+    useEffect(()=>{
+        if(width <= 900) {
+          setIsDrawerOpen(false);
+        }
+      }, [width])
 
     const colorMode = useMemo(() => ({
         toggleColorMode: () => {
@@ -38,7 +54,7 @@ export const ColorModeProvider = ({children} : { children: ReactNode }) => {
     }), [mode]);
 
 
-    return <ColorModeContext.Provider value={colorMode}>
+    return <ColorModeContext.Provider value={{...colorMode, drawerWidth, isDrawerOpen, setIsDrawerOpen}}>
         <ThemeProvider theme={theme}>
             {children}
         </ThemeProvider>

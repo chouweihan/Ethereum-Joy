@@ -20,7 +20,15 @@ export interface ITransaction {
 }
 
 
-export interface ITransactionState {
-    original: Array<ITransaction>
-    filtered: Array<ITransaction>    
+export interface ITransactionFiltered {
+    blockHash: string
+    from: string
+    gasSpent: string
+    hash: string
+    input: string
+    isError: string
+    nonce: string
+    timeStamp: string
+    to: string
+    value: string
 }

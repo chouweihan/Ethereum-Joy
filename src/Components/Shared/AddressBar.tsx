@@ -5,13 +5,13 @@ import { useColorMode } from "../../Contexts/ColorModeContext";
 import { useSnackbar } from "notistack";
 import { CustomSelect, StyledOption } from "./CurrencySelect";
 import { currencyTypes } from "../../Assets/Data/CurrencyTypes";
-import { ReactComponent as EthereumIcon } from "../../Assets/Icon/ethereum.svg"
 import axios from "axios";
 import { weiToEthString4D , calculateEthToString } from "../../Utility/formatter";
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import PaidIcon from '@mui/icons-material/Paid';
 import Web3 from "web3";
 import { getCurrencySymbol } from "../../Utility/currency";
+import EthIcon from "./EthIcon";
 
 const AddressBar = () => {
   const theme = useTheme();
@@ -115,8 +115,8 @@ const AddressBar = () => {
                 backgroundColor: theme.palette.secondary.light,
                 borderRadius: "4px"
             }}}>
-              <Box sx={{flexGrow: 1, display: "flex", alignItems: "center", paddingLeft: 1}}>
-                <EthereumIcon style={{width: "12px", height: '17px', ...(mode === "dark" && { filter: "invert(100%)"})}}/>
+              <Box sx={{flexGrow: 1, display: "flex", alignItems: "center", paddingLeft: 1 }}>
+                <EthIcon/>
                 <Typography sx={{ml: "4px", fontFamily: "inherit", fontSize: "inherit"}}>
                   {walletEth}
                 </Typography>
@@ -126,7 +126,7 @@ const AddressBar = () => {
                 </Typography>
               </Box>
               <Box sx={{mr: 1, alignItems: "center", display: 'flex' }}>
-                <EthereumIcon style={{marginRight: "4px", width: "12px", height: '17px', ...(mode === "dark" && { filter: "invert(100%)"})}}/>
+                <EthIcon />
                 {
                   currency.value !== 0 ?
                   `${getCurrencySymbol(currency.type)} ${Number(currency.value).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
@@ -134,7 +134,7 @@ const AddressBar = () => {
                   <CircularProgress color="primary" size={25} sx={{mr: 1, ml: 1}}/>
                 }
               </Box>
-              <CustomSelect defaultValue={currency.type} onChange={setCurrencyType}>
+              <CustomSelect value={currency.type ? currency.type : "CAD"} onChange={setCurrencyType}>
                   {currencyTypes.map((type, index)=> {
                       return <StyledOption value={type} key={index}>{type}</StyledOption>
                   })}

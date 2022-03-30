@@ -42,8 +42,15 @@ export const WalletProvider = ({children} : { children: ReactNode }) => {
   }
 
   const setCurAddress = (curAddress: string) => {
-    dispatch({type: "setLoading"});
-    dispatch({type: "setCurAddress", payload: curAddress});
+    if(curAddress === state.curAddress) {
+      enqueueSnackbar(`Address is already set to: ${curAddress}`, {
+        variant: "info",
+        autoHideDuration: 3000,
+      })
+    } else {
+      dispatch({type: "setLoading"});
+      dispatch({type: "setCurAddress", payload: curAddress});
+    }
   }
 
   const setCurrencyType = (type: TCurrencyTypes) => {
@@ -83,13 +90,14 @@ export const WalletProvider = ({children} : { children: ReactNode }) => {
             dispatch({ type: "setTransactionStatus", payload: APIStatus.SUCCESS })
           }
           else {
-            throw new Error("invalid api fetch");
+            throw new Error("No transactions exists at this address");
           }
         })
         .catch((err) => {
+            console.log(err);
             dispatch({type: "endLoading"})
             dispatch({ type: "setTransactions", payload: []})
-            enqueueSnackbar("Failed to fetch transactions", {
+            enqueueSnackbar(err.message ? err.message : "Failed to fetch transactions", {
               variant: "error",
               autoHideDuration: 3000,
             })
