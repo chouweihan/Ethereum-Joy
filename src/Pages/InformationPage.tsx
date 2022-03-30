@@ -1,68 +1,93 @@
 import React from 'react'
 import { useWallet } from '../Contexts/WalletContext';
-import { useTheme, Grid, Alert, Paper } from '@mui/material';
+import { useTheme, Grid, Alert, Paper, Stack } from '@mui/material';
 import PleaseConnect from '../Components/Shared/PleaseConnect';
 import Loader from '../Components/Shared/Loader';
 import FailedCard from '../Components/Information/FailedCard';
 import BigGasCard from '../Components/Information/BigGasCard';
 import AudioCard from '../Components/Information/AudioCard';
 import { useColorMode } from '../Contexts/ColorModeContext';
+import GeneralGasCard from '../Components/Information/GeneralGasCard';
+import BigValueCard from '../Components/Information/BigValueCard';
+
+const AudioFooter = () => {
+  const { drawerWidth, isDrawerOpen } = useColorMode();
+  const theme = useTheme();
+  return (
+      <Paper sx={{ position: 'fixed', bottom: 0, right: 0, left: 0, 
+        paddingLeft: isDrawerOpen ? drawerWidth : 0,
+        zIndex: 1202,
+        transition: theme.transitions.create(["width", "margin"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      ...(isDrawerOpen && {
+        transition: theme.transitions.create(["width", "margin"], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+      }),
+      
+    }} elevation={2}>
+        <AudioCard />
+    </Paper>
+  )
+}
+
 const InformationPage = () => {
 
-  const { drawerWidth, isDrawerOpen } = useColorMode();
   const {
     wallet: { curAddress, transactions, loading },
   } = useWallet();
-  const theme = useTheme();
-
 
   if(!curAddress) {
     return (
-      <PleaseConnect />
+      <>
+        <PleaseConnect />
+        <AudioFooter />
+      </>
     )
   }
 
   if(loading) {
     return (
-      <Loader px={2} />
+      <>
+        <Loader px={2} />
+        <AudioFooter />
+      </>
     )
   }
 
   if(transactions.length === 0) {
     return (
-      <Alert severity="warning" variant="outlined">
-            No transactions exist for this address
-      </Alert>
+      <>
+        <Alert severity="warning" variant="outlined">
+              No transactions exist for this address
+        </Alert>
+        <AudioFooter />
+      </>
     )
   }
 
   return (
-    <Grid container spacing={1} sx={{ pb: "59px" }}>
+    <Grid container spacing={2} sx={{ pb: "59px" }}>
       <Grid item xs={12} md={6}>
-        <FailedCard />
+        <Stack spacing={2}>
+          <FailedCard />
+          <GeneralGasCard />
+        </Stack>
       </Grid>
       <Grid item xs={12} md={6}>
-        <BigGasCard />
+        <Stack spacing={2}>
+          <BigGasCard />
+          <BigValueCard />
+        </Stack>
       </Grid>
-      <Paper sx={{ position: 'fixed', bottom: 0, right: 0, left: 0, 
-          paddingLeft: isDrawerOpen ? drawerWidth : 0,
-          zIndex: 1202,
-          transition: theme.transitions.create(["width", "margin"], {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        ...(isDrawerOpen && {
-          transition: theme.transitions.create(["width", "margin"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-          }),
-        }),
-        
-      }} elevation={2}>
-          <AudioCard />
-      </Paper>
+      <AudioFooter />
     </Grid>
   )
 }
 
 export default InformationPage
+
+

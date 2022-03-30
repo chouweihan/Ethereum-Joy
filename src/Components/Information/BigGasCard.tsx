@@ -75,7 +75,7 @@ const BigGasCard = () => {
                     return <TableRow key={t.hash}>
                       <TableCell> 
                         <Link href={`https://etherscan.io/tx/${t.hash}`} target="_blank" underline="none">
-                          {t.hash.substring(0, 15)}...
+                          {t.hash.substring(0, 7)}...
                         </Link>
                       </TableCell>  
                       <TableCell>

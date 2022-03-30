@@ -27,11 +27,11 @@ const filterErrorSuccess = (data: Array<ITransaction>, error: boolean) : ITransa
 }
 
 const filterIn = (data: Array<ITransaction>, address: string) : ITransaction[] => {
-    return [...data.filter((t) => t.to === address)];
+    return [...data.filter((t) => t.to.toLowerCase() === address.toLowerCase())];
 }
 
 const filterOut = (data: Array<ITransaction>, address: string) : ITransaction[] => {
-    return [...data.filter((t) => t.to !== address)];
+    return [...data.filter((t) => t.to.toLowerCase() !== address.toLowerCase())];
 }
  
 const sortByBiggestGas = (data: Array<ITransaction>) : ITransaction[] => {

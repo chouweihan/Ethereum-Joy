@@ -60,7 +60,7 @@ const FailedCard = () => {
 
   return (
     <Card>
-        <CardHeader title={gasInfo.failedAmount > 0 ? "The Big Fail" : "The Bullet Dodger"} subheader="based on outgoing transactions"/>
+        <CardHeader title={gasInfo.failedAmount > 0 ? "The Big Fail" : "The Bullet Dodger"}     />
        {
            gasInfo.failedAmount > 0 ? 
             <CardContent>

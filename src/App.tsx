@@ -12,6 +12,7 @@ import PageWrapper from "./Components/Shared/PageWrapper";
 
 function App() {
 
+
   return (
     <ColorModeProvider>
       <SnackbarProvider maxSnack={10} >

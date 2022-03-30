@@ -168,7 +168,7 @@ const AudioCard = () => {
               }}
             >
               <TinyText>{formatDuration(curTime)}</TinyText>
-              <TinyText>{formatDuration(curTime - maxAudio)}</TinyText>
+              <TinyText>- {formatDuration(maxAudio - curTime)}</TinyText>
             </Box>
           </Box>
           </CardContent>  

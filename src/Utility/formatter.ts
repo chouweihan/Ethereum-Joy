@@ -20,7 +20,7 @@ export const weiToEthString4D = (wei: string) : string => {
 
 export const splitEth = (eth: string) : string => {
   const split = eth.split(".");
-          if (split.length > 0 && split[1].length >= 5) {
+          if (split.length > 1 && split[1].length >= 5) {
             eth = split[0] + "." + split[1].substring(0, 4);
           }
   return eth;
