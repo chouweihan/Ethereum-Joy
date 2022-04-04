@@ -5,7 +5,6 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import { useSnackbar } from "notistack";
 import { action } from "../Components/Shared/Metamask";
 import { useColorMode } from "../Contexts/ColorModeContext";
-import { ethers } from "ethers";
 import Web3 from "web3";
 
 declare var window: any;
