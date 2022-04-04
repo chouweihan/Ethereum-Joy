@@ -6,6 +6,7 @@ import { useSnackbar } from "notistack";
 import { action } from "../Components/Shared/Metamask";
 import { useColorMode } from "../Contexts/ColorModeContext";
 import Web3 from "web3";
+import { useWallet } from "../Contexts/WalletContext";
 
 declare var window: any;
 interface ISuccess {
@@ -18,32 +19,9 @@ const AboutPage = () => {
   const { enqueueSnackbar } = useSnackbar();
   const { mode } = useColorMode();
   const theme = useTheme();
+  const { setAddress } = useWallet();
   
-  const requestEth = async () => {
-    setSuccess({
-      ...success,
-      txHash: ""
-    });
-
-    if(!value || Number.isNaN(Number(value))) {
-      enqueueSnackbar("Must enter a valid number", {
-        variant: "warning",
-      })
-      return;
-    }
-
-    if (!window.ethereum) {
-      enqueueSnackbar("Metamask extension is required", {
-        variant: "warning",
-        action
-      });
-      return;
-    }
-
-    enqueueSnackbar("Transaction Initiated", {
-      variant: "info",
-    });
-
+  const sendRequest = async () => {
     const transactionParameters = {
       nonce: '0x00', 
       gasPrice: '174876E800', 
@@ -65,14 +43,80 @@ const AboutPage = () => {
         value: value
       });
       enqueueSnackbar("Transaction Sent!", {
-        variant: "success"
+        variant: "success",
+        autoHideDuration: 2500
       });
     }).catch(() => {
       enqueueSnackbar("Transaction Failed", {
-        variant: "error"
+        variant: "error",
+        autoHideDuration: 2000
       });
     });
   }
+
+  const requestEth = async () => {
+    setSuccess({
+      ...success,
+      txHash: ""
+    });
+
+    if(!value || Number.isNaN(Number(value))) {
+      enqueueSnackbar("Must enter a valid number", {
+        variant: "warning",
+        autoHideDuration: 1500
+      })
+      return;
+    }
+
+    if (!window.ethereum) {
+      enqueueSnackbar("Metamask extension is required", {
+        variant: "warning",
+        action
+      });
+      return;
+    }
+
+    enqueueSnackbar("Transaction Initiated", {
+      variant: "info",
+    });
+
+    const checkAccounts = await window.ethereum.request({
+      method: "eth_accounts",
+    });
+
+
+    if(checkAccounts.length === 0) {
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        setAddress(accounts[0]);
+        enqueueSnackbar("Succesfully connected", {
+          variant: "success",
+          autoHideDuration: 2000,
+        });
+        sendRequest();
+      } catch (err: any) {
+        console.log(err);
+        if(err.code === -32002) {
+          enqueueSnackbar("Pending connection, check metamask", {
+            autoHideDuration: 2000,
+            variant: "warning"
+          });
+        }
+  
+        if(err.code === 4001) {
+          enqueueSnackbar("Connection rejected by user", {
+            autoHideDuration: 2000,
+            variant: "error"
+          });
+        }
+      }
+    } else {
+      sendRequest();
+    }
+  }
+
   
   return (
     <Grid>
