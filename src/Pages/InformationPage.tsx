@@ -9,6 +9,7 @@ import AudioCard from '../Components/Information/AudioCard';
 import { useColorMode } from '../Contexts/ColorModeContext';
 import GeneralGasCard from '../Components/Information/GeneralGasCard';
 import BigValueCard from '../Components/Information/BigValueCard';
+import GasPrice from '../Components/Information/GasPrice';
 
 const AudioFooter = () => {
   const { drawerWidth, isDrawerOpen } = useColorMode();
@@ -43,6 +44,7 @@ const InformationPage = () => {
   if(!curAddress) {
     return (
       <>
+        <GasPrice />
         <PleaseConnect />
         <AudioFooter />
       </>
@@ -52,6 +54,7 @@ const InformationPage = () => {
   if(loading) {
     return (
       <>
+        <GasPrice />
         <Loader px={2} />
         <AudioFooter />
       </>
@@ -61,6 +64,7 @@ const InformationPage = () => {
   if(transactions.length === 0) {
     return (
       <>
+        <GasPrice />
         <Alert severity="warning" variant="outlined">
               No transactions exist for this address
         </Alert>
@@ -71,6 +75,9 @@ const InformationPage = () => {
 
   return (
     <Grid container spacing={2} sx={{ pb: "59px" }}>
+      <Grid item xs={12}>
+        <GasPrice />
+      </Grid>
       <Grid item xs={12} md={6}>
         <Stack spacing={2}>
           <FailedCard />

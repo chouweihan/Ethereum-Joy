@@ -115,7 +115,7 @@ const Metamask = () => {
   );
 };
 
-const action = () => (
+export const action = () => (
   <>
     <Link
       target="_blank"

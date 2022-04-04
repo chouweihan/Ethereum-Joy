@@ -48,8 +48,8 @@ const AddressBar = () => {
 
   const handleAddressBarSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    if(Web3.utils.isAddress(inputAddress)) {
-        setCurAddress(inputAddress);
+    if(Web3.utils.isAddress(inputAddress.replace(/\s/g, ""))) {
+        setCurAddress(inputAddress.replace(/\s/g, ""));
         enqueueSnackbar(`Address set to ${inputAddress}`, {
             variant: "success",
             autoHideDuration: 3000

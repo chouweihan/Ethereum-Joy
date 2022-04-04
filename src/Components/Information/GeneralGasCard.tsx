@@ -1,8 +1,8 @@
 import React,  { useCallback, useEffect, useState }  from 'react'
-import { filterIn, filterOut, sortByBiggestGas } from '../../Utility/transactions';
-import { getGasBigNumber, splitEth, calculateEthToString, getGasEthString } from '../../Utility/formatter';
+import { filterOut, sortByBiggestGas } from '../../Utility/transactions';
+import { getGasBigNumber, splitEth, calculateEthToString } from '../../Utility/formatter';
 import { useWallet } from '../../Contexts/WalletContext';
-import { Card, CardHeader, CardContent, Typography, Stack, Link } from "@mui/material";
+import { Card, CardHeader, CardContent, Typography, Stack } from "@mui/material";
 import { ethers, BigNumber } from 'ethers';
 import { ITransaction } from '../../Interfaces/ITransaction';
 import HighlightText from './HighlightText';

@@ -4,7 +4,6 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { useColorMode } from "../../Contexts/ColorModeContext";
 import { NavLink } from "react-router-dom";
-import { IDrawerInterface } from "../../Interfaces/IDrawerInterface";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Theme, useTheme, Tooltip } from "@mui/material";
 import useWindowDimensions from "../../Utility/windowDimensions";

@@ -20,12 +20,12 @@ const AudioCard = () => {
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [curTime, setCurTime] = useState<number>(0);
     const [maxAudio, setMaxAudio] = useState<number>(0);
-    const [volume, setVolume] = useState<number>(1);
+    const [volume, setVolume] = useState<number>(0.7);
     const [showVolume, setShowVolume] = useState<boolean>(false);
 
     audio.current.addEventListener("ended", ()=> {
         audio.current.currentTime = 0;
-        audio.current.play();
+        setIsPlaying(false);
     });
 
     audio.current.addEventListener("timeupdate", function () {

@@ -5,6 +5,7 @@ import { IWallet, IWalletContextState, TCurrencyTypes } from "../Interfaces/IWal
 import { walletReducer } from "../Reducers/WalletReducer";
 import { useSnackbar } from "notistack";
 import { APIStatus } from "../Interfaces/IGeneral";
+
 const initialState: IWallet = {
     address: "",
     curAddress: "",

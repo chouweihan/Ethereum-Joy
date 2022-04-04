@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useState } from 'react'
 import { Card, CardContent, CardHeader, Typography, Stack, Table, TableHead, TableRow, TableCell, TableBody, Link, Box } from '@mui/material'
 import { useWallet } from '../../Contexts/WalletContext';
 import { calculateEthToString, getGasBigNumber, weiToEthString4D  } from '../../Utility/formatter';
-import { ethers, BigNumber } from 'ethers';
+import { BigNumber } from 'ethers';
 import { filterOut, sortByBiggestGas, filterErrorSuccess } from '../../Utility/transactions';
 import { ITransaction } from '../../Interfaces/ITransaction';
 import HighlightText from './HighlightText';

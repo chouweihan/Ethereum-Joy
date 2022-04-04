@@ -60,13 +60,13 @@ const FailedCard = () => {
 
   return (
     <Card>
-        <CardHeader title={gasInfo.failedAmount > 0 ? "The Big Fail" : "The Bullet Dodger"}     />
+        <CardHeader title={gasInfo.failedAmount > 0 ? "The Big Fail" : "The Bullet Dodger"}   subheader={gasInfo.failedAmount > 0 ? "Oh yeah, this ones gonna hurt" : "You must be personally blessed by god"} />
        {
            gasInfo.failedAmount > 0 ? 
             <CardContent>
                 <Stack spacing={1}>
                     <Typography fontSize={17}>
-                        Wow! <HighlightText>{gasInfo.failedAmount}</HighlightText> out of {gasInfo.outgoingAmount} of your transactions have failed!
+                        Wow! <HighlightText>{gasInfo.failedAmount}</HighlightText> out of {gasInfo.outgoingAmount} of your outgoing transactions have failed!
                     </Typography>
                     <Typography fontSize={17}>
                         That's a whopping <HighlightText>{((gasInfo.failedAmount / gasInfo.outgoingAmount) * 100).toFixed(2)}%</HighlightText> of your transactions.

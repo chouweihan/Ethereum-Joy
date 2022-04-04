@@ -1,6 +1,5 @@
 import { SvgIconComponent } from "@mui/icons-material";
-import ListAltIcon from '@mui/icons-material/ListAlt';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';  
+import ListAltIcon from '@mui/icons-material/ListAlt'; 
 import AddchartIcon from '@mui/icons-material/Addchart';
 import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined';
 
@@ -17,7 +16,7 @@ export const drawerLinks: Array<IDrawerLink> = [
     icon: ListAltIcon
   },
   {
-    label: "Information",
+    label: "Gas Information",
     url: "/information",
     icon: AddchartIcon
   },

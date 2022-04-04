@@ -1,7 +1,7 @@
 import React from 'react'
 import { ReactComponent as EthereumIcon } from "../../Assets/Icon/ethereum.svg"
 import { useColorMode } from '../../Contexts/ColorModeContext'
-import { Box } from '@mui/system'
+
 const EthIcon = ({style} : { style?: React.CSSProperties}) => {
 
   const {mode} = useColorMode();
